@@ -20,7 +20,7 @@ uint32_t my_ntohl(uint32_t n) {
 }
 
 // read file
-uint32_t read_number_from_file(const char *filename) {
+uint32_t read_file(const char *filename) {
     FILE *file = fopen(filename, "rb");
     if (file == NULL) {
         error_exit("Error opening file");
@@ -36,9 +36,9 @@ uint32_t read_number_from_file(const char *filename) {
     fclose(file);
 
     // NBO to HBO
-    uint32_t host_order_number = my_ntohl(number);
+    uint32_t hbo_number = my_ntohl(number);
 
-    return host_order_number;
+    return hbo_number;
 }
 
 int main(int argc, char *argv[]) {
@@ -49,8 +49,8 @@ int main(int argc, char *argv[]) {
     const char *file1 = argv[1];
     const char *file2 = argv[2];
 
-    uint32_t num1 = read_number_from_file(file1);
-    uint32_t num2 = read_number_from_file(file2);
+    uint32_t num1 = read_file(file1);
+    uint32_t num2 = read_file(file2);
     uint32_t sum = num1 + num2;
 
     printf("%u(0x%x) + %u(0x%x) = %u(0x%x)\n", num1, num1, num2, num2, sum, sum);
